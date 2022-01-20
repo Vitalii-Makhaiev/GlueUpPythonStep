@@ -2260,7 +2260,7 @@ try:
             for row2 in rows2:
                 row2=rows2[0]
                 if row2>0 : move_vwz_zoom_sync_track(source_conn, target_conn)
-        else: print(f"Unknown table, check the name:{target_name}")
+        else: print("Unknown table, check the name:{}".format(target_name))
         # ===============  end of if  =====================
 
     curs2.close()
