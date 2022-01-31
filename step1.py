@@ -64,17 +64,25 @@ try:
     today_delta = datetime.now().date() - timedelta(minutes=10)
   ## Add the journal log migration
     curs = source_conn.cursor(buffered=True)
-    row = curs.execute("SELECT target_name, source_table_name, source_database, stg_table_name, vw_name, vwz_name, dwh_table_name, dwh_database FROM v_tables_confirmed_migration ")
+    row = curs.execute("SELECT target_name, transfer_type, table_rows, last_etl_run, last_etl_status, last_comment, source_table_name, source_database, stg_table_name, vw_name, vwz_name, dwh_table_name, dwh_database FROM v_tables_confirmed_migration ")
     for row in curs:
         target_name = row[0]
-        source_table_name = row[1]
-        source_database = row[2]
-        stg_table_name = row[3]
-        vw_name = row[4]
-        vwz_name = row[5]
-        dwh_table_name = row[6]
-        dwh_database = row[7]
+        transfer_type = row[1]
+        table_rows = row[2]
+        last_etl_run = row[3]
+        last_etl_status = row[4]
+        last_comment = rows[5]
+        source_table_name = row[6]
+        source_database = row[7]
+        stg_table_name = row[8]
+        vw_name = row[9]
+        vwz_name = row[10]
+        dwh_table_name = row[11]
+        dwh_database = row[12]
         curs.close()
+        # добавить проверку количества строк для переноса либо обработку флажка запуска
+        # затем проверку вида запуска - trigger snapshot  view
+        # и запускаем соответствующую процедуру
         # =============== begin of if =====================
         if target_name=='accreditation':
             print("{}".format(target_name))
